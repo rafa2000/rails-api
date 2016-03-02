@@ -31,8 +31,6 @@ class <%= controller_class_name %>Controller < ApplicationController
   # PATCH/PUT <%= route_url %>/1
   # PATCH/PUT <%= route_url %>/1.json
   def update
-    @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
-
     if @<%= Rails::API.rails3? ? orm_instance.update_attributes("params[:#{singular_table_name}]") : orm_instance.update("#{singular_table_name}_params") %>
       head :no_content
     else
@@ -55,10 +53,10 @@ class <%= controller_class_name %>Controller < ApplicationController
     end
 
     def <%= "#{singular_table_name}_params" %>
-      <%- if attributes_names.empty? -%>
-      params[:<%= singular_table_name %>]
-      <%- else -%>
+      <%- if defined?(attributes_names) -%>
       params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
+      <%- else -%>
+      params[:<%= singular_table_name %>]
       <%- end -%>
     end
 end

@@ -2,27 +2,38 @@ language: ruby
 
 sudo: false
 
+before_install:
+  - gem update --system
+  - gem install bundler
+
 rvm:
   - 1.9.3
   - 2.0.0
   - 2.1
-  - 2.2
+  - 2.2.2
   - ruby-head
   - jruby
   - rbx-2
 
 gemfile:
   - Gemfile
+  - Gemfile.3-2
+  - Gemfile.4-0
+  - Gemfile.4-1
+  - Gemfile.4-2
 
 matrix:
-  include:
-    - rvm: 2.2
-      gemfile: Gemfile.edge
-    - rvm: ruby-head
-      gemfile: Gemfile.edge
-  allow_failures:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: Gemfile
+    - rvm: 2.0.0
+      gemfile: Gemfile
+    - rvm: 2.1
+      gemfile: Gemfile
+    - rvm: jruby
+      gemfile: Gemfile
     - rvm: rbx-2
-      gemfile: Gemfile.edge
+      gemfile: Gemfile
 
 notifications:
   email: false

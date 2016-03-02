@@ -2,6 +2,8 @@
 
 [![Build Status](https://secure.travis-ci.org/rails-api/rails-api.png?branch=master)](http://travis-ci.org/rails-api/rails-api)
 
+**IMPORTANT**: [Rails::API has been merged into Rails](https://github.com/rails/rails/pull/19832)
+
 **Rails::API** is a subset of a normal Rails application, created for applications that don't require all functionality that a complete Rails application provides. It is a bit more lightweight, and consequently a bit faster than a normal Rails application. The main example for its usage is in API applications only, where you usually don't need the entire Rails middleware stack nor template generation.
 
 ## Using Rails for API-only Apps
@@ -159,7 +161,6 @@ An API application comes with the following middlewares by default.
 * *Rack::Lock*: If your application is not marked as threadsafe (`config.threadsafe!`), this middleware will add a mutex around your requests.
 * *Rack::Runtime*: Adds a header to the response listing the total runtime of the request.
 * *Rack::Sendfile*: Uses a front-end server's file serving support from your Rails application.
-* *Rack::Head*: Dispatch *HEAD* requests as *GET* requests, and return only the status code and headers.
 * *Rails::Rack::Logger*: Log the request started and flush all loggers after it.
 
 Other plugins, including *ActiveRecord*, may add additional middlewares. In general, these middlewares are agnostic to the type of app you are building, and make sense in an API-only Rails application.

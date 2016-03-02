@@ -12,8 +12,13 @@ end
 
 class ActiveSupport::TestCase
   def self.app
-    @@app ||= Class.new(Rails::Application) do
+    @@app ||= Class.new(Rails::Application).tap do |app|
+      config = app.config
+
       config.active_support.deprecation = :stderr
+
+      config.active_support.test_order = :random
+
       config.generators do |c|
         c.orm :active_record, :migration => true,
           :timestamps => true
